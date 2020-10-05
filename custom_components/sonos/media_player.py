@@ -218,6 +218,7 @@ ATTR_WITH_GROUP = "with_group"
 ATTR_NIGHT_SOUND = "night_sound"
 ATTR_SPEECH_ENHANCE = "speech_enhance"
 ATTR_QUEUE_POSITION = "queue_position"
+ATTR_PLAY_MODE = "play_mode"
 ATTR_STATUS_LIGHT = "status_light"
 
 UNAVAILABLE_VALUES = {"", "NOT_IMPLEMENTED", None}
@@ -410,13 +411,12 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         "set_option",
     )
 
-    # Make current state of device available
-    # platform.async_register_entity_service(
-    #     SERVICE_SET_PLAY_MODE,
-    #     {
-    #         vol.Optional(ATTR_PLAY_MODE): cv.positive_int
-    #     }
-    # )
+    platform.async_register_entity_service(
+         SERVICE_SET_PLAY_MODE,
+         {
+             vol.Optional(ATTR_PLAY_MODE): cv.string
+         }
+    )
 
     platform.async_register_entity_service(
         SERVICE_PLAY_QUEUE,
