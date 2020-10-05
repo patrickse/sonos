@@ -68,6 +68,16 @@ set_option:
       description: Enable Status (LED) Light
       example: "true"
 
+set_play_mode:
+  description: Set the Sonos play mode.
+  fields:
+    entity_id:
+      description: Name(s) of entities that will have play mode set.
+      example: "media_player.living_room_sonos"
+    play_mode:
+      description: Playmode to set (NORMAL, SHUFFLE_NOREPEAT, SUFFLE, REPEAT_ALL, SHUFFLE_REPEAT_ONE, REPEAT_ONE)
+      example: REPEAT_ONE
+
 play_queue:
   description: Starts playing the queue from the first item.
   fields:

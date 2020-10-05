@@ -204,6 +204,7 @@ SERVICE_SET_TIMER = "set_sleep_timer"
 SERVICE_CLEAR_TIMER = "clear_sleep_timer"
 SERVICE_UPDATE_ALARM = "update_alarm"
 SERVICE_SET_OPTION = "set_option"
+SERVICE_SET_PLAY_MODE = "set_play_mode"
 SERVICE_PLAY_QUEUE = "play_queue"
 SERVICE_REMOVE_FROM_QUEUE = "remove_from_queue"
 
@@ -409,6 +410,14 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         "set_option",
     )
 
+    # Make current state of device available
+    # platform.async_register_entity_service(
+    #     SERVICE_SET_PLAY_MODE,
+    #     {
+    #         vol.Optional(ATTR_PLAY_MODE): cv.positive_int
+    #     }
+    # )
+
     platform.async_register_entity_service(
         SERVICE_PLAY_QUEUE,
         {vol.Optional(ATTR_QUEUE_POSITION): cv.positive_int},
@@ -519,6 +528,7 @@ class SonosEntity(MediaPlayerEntity):
         self._queue_position = None
         self._night_sound = None
         self._speech_enhance = None
+        self._play_mode = None
         self._source_name = None
         self._favorites = []
         self._soco_snapshot = None
@@ -1404,6 +1414,11 @@ class SonosEntity(MediaPlayerEntity):
 
         if status_light is not None:
             self.soco.status_light = status_light
+
+    @soco_error()
+    def set_play_mode(self, play_mode="NORMAL"):
+        """Modify play mode."""
+        self.soco.play_mode = play_mode
 
     @soco_error()
     def play_queue(self, queue_position=0):
