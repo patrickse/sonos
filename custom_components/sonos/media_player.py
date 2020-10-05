@@ -415,7 +415,8 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
          SERVICE_SET_PLAY_MODE,
          {
              vol.Optional(ATTR_PLAY_MODE): cv.string
-         }
+         },
+        "set_play_mode"
     )
 
     platform.async_register_entity_service(
